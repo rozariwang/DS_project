@@ -1,20 +1,11 @@
 import streamlit as st
-import openai
 import controller
 
 st.title("🍎 Data Science Group 3 - NLP Financial Forcasting App")
 
-# Define the list of tech companies
-companies = [
-    "Apple",
-    "Amazon",
-    "Google",
-    "Microsoft"
-    "Facebook",
-    "Tesla",
-    # Add more companies as desired
-]
-
+with open('company_names.txt', 'r') as file:
+    companies= file.readlines() 
+    
 # Streamlit app code
 def main():
     st.title("Tech Company Investment Recommendation")
