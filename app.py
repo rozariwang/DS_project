@@ -8,7 +8,7 @@ with open('company_names.txt', 'r') as file:
     
 # Streamlit app code
 def main():
-    st.title("Tech Company Investment Recommendation")
+    st.title("US Company Investment Recommendation")
     
     # Dropdown selection box for companies
     selected_company = st.selectbox("What company do you want to invest in?", companies)
