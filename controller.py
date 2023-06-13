@@ -21,8 +21,7 @@ def generate_recommendation(company):
     
     prompt = f"Given the score -1(not promising) to 1(very promosing), our model gives {company} company a score of {score}. Based on this score {score}, explain why {company} company stock might or might not be suitable to invest in the long term? Respond in less than 150 words."
     completion = openai.Completion.create(
-        engine='text-babbage-002',
-        #engine='text-davinci-003',
+        engine='text-davinci-003',
         prompt=prompt,
         max_tokens=1000,
         n=1,
