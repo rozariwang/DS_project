@@ -8,6 +8,7 @@ secrets = st.secrets["openai"]
 openai_organization = secrets["openai_organization"]
 openai_api = secrets["openai_api"]
 '''
+   
 
 # Set up OpenAI API credentials
 #openai.organization = openai_organization
