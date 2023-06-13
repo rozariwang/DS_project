@@ -2,7 +2,7 @@ import openai
 import random
 import streamlit as st
 
-'''
+''' :)
 # Retrieve OpenAI API credentials from secrets.toml
 secrets = st.secrets["openai"]
 openai_organization = secrets["openai_organization"]
