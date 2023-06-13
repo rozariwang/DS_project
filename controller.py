@@ -26,7 +26,7 @@ def generate_recommendation(company):
         max_tokens=1000,
         n=1,
         stop=None,
-        temperature=0.5
+        temperature=0.6
     )
     response = completion.choices[0].text
     return response
