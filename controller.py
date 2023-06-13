@@ -19,7 +19,7 @@ openai.api_key = "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"
 def generate_recommendation(company):
     score = generate_random_prediction()
     
-    prompt = f"Given the score -1(not promising) to 1(very promosing), our model gives {company} company a score of {score}. Based on this score {score}, explain why {company} company stock might or might not be suitable to invest in the long term? Respond in less than 250 words."
+    prompt = f"Given the score -1(not promising) to 1(very promosing), our model gives {company} company a score of {score}. Based on this score {score}, explain why {company} company stock might or might not be suitable to invest in the long term? Respond in less than 150 words."
     completion = openai.Completion.create(
         engine='text-davinci-003',
         prompt=prompt,
