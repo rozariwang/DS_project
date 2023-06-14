@@ -51,9 +51,13 @@ def main():
     
     if submit_button:
         if selected_company:
-        # Call controller's generate_recommendation() function to get recommendation
-          response = controller.generate_recommendation(selected_company)
-          st.write(response)  # Display the recommendation 
+            # Show loading message
+            with st.spinner("Generating recommendation..."):
+                # Call controller's generate_recommendation() function to get recommendation
+                response = controller.generate_recommendation(selected_company)
+                
+                # Display the recommendation
+                st.write(response)
 
 if __name__ == '__main__':
     main()
