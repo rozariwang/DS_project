@@ -20,8 +20,6 @@ st.title("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for L
 
 st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Ho-Hsuan Wang (in alphabetical order)')
 
-st.divider()
-
 # Introduction section
 st.markdown(
     """
@@ -29,12 +27,12 @@ st.markdown(
     long-term investment success. By leveraging advanced large language models (LLMs), analyzing macroeconomic
     indicators, and monitoring industry trends, it provides insights into the growth potential of stocks.
     
-    Please note that investing in the stock market carries risks, and past performance is not indicative of
+    Please note that investing in the stock market carries risks, and past performance is not always indicative of
     future results. The Long-Term Investment Analysis App does not guarantee investment success or provide
     financial advice. It is essential to evaluate your investment decisions carefully and consider consulting
     with a qualified financial professional. 
     
-    Happy Investing! 💸
+    Happy Investing! 💸 
     """
 )
 
@@ -44,8 +42,6 @@ with open('company_names.txt', 'r') as file:
 # Streamlit app code
 def main():
     st.subheader("Investment Recommendation")
-    
-    st.divider()
     
     # Dropdown selection box for companies
     selected_company = st.selectbox("What company do you want to invest in?", companies)
