@@ -69,7 +69,8 @@ def main():
                 search_history.append((selected_company, response))
    
     # Store updated search history in cache
-    get_search_history(search_history)
+    get_search_history.cache_clear()
+    get_search_history().extend(search_history)
     
     # Display search history section
     st.subheader("Search History")
