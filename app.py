@@ -16,20 +16,21 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("🍎 Data Science Group 3 - NLP Financial Forcasting App")
+st.title("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth")
 
 # Introduction section
 st.markdown(
     """
-    ## Introduction
+    Welcome to the Long-Term Investment Analysis App! 📊 This app helps investors make informed decisions for
+    long-term investment success. By leveraging advanced large language models (LLMs), analyzing macroeconomic
+    indicators, and monitoring industry trends, it provides insights into the growth potential of stocks.
     
-    Welcome to the NLP Financial Forecasting App! This app provides investment recommendations
-    for US companies based on natural language processing techniques and financial data analysis.
+    Please note that investing in the stock market carries risks, and past performance is not indicative of
+    future results. The Long-Term Investment Analysis App does not guarantee investment success or provide
+    financial advice. It is essential to evaluate your investment decisions carefully and consider consulting
+    with a qualified financial professional. 
     
-    Simply select a company from the dropdown list, click the Generate Recommendation button, and receive a 
-    recommendation tailored to your investment needs.
-    
-    Happy investing!
+    Happy Investing! 💸
     """
 )
 
@@ -38,7 +39,7 @@ with open('company_names.txt', 'r') as file:
     
 # Streamlit app code
 def main():
-    st.title("💸 US Company Investment Recommendation 🚀")
+    st.title("💸 Investment Recommendation")
     
     # Dropdown selection box for companies
     selected_company = st.selectbox("What company do you want to invest in?", companies)
