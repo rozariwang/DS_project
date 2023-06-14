@@ -39,6 +39,9 @@ st.markdown(
 with open('company_names.txt', 'r') as file:
     companies= file.readlines() 
     
+# Initialize search history list 
+search_history = []
+    
 # Streamlit app code
 def main():
     st.subheader("Investment Recommendation")
@@ -57,8 +60,19 @@ def main():
                 response = controller.generate_recommendation(selected_company)
                 
                 # Display the recommendation
-    st.write(response)
-
+                st.write(response)
+                # Append the search history with a maximum of three entries
+                if len(search_history) == 3:
+                    search_history.pop(0)  # Remove the oldest entry if the search history is full
+                search_history.append((selected_company, response))
+   
+    # Display search history section
+    st.subheader("Search History")
+    for company, recommendation in search_history:
+        st.write(f"Company: {company}")
+        st.write(f"Recommendation: {recommendation}")
+        st.divider()
+        
 if __name__ == '__main__':
     main()
     
