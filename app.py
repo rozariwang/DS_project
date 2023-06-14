@@ -39,13 +39,6 @@ st.markdown(
 with open('company_names.txt', 'r') as file:
     companies= file.readlines() 
     
-'''
-@st.cache(allow_output_mutation=True)
-def get_search_history(history):
-    search_history = []
-    search_history.append(history)
-    st.write(search_history)
-'''
     
 # Streamlit app code
 def main():
@@ -67,23 +60,6 @@ def main():
                 # Display the recommendation
                 st.write(response)
                 
-                '''
-                # Append the search history with a maximum of three entries
-                if len(search_history) == 3:
-                    search_history.pop(0)  # Remove the oldest entry if the search history is full
-                search_history.append((selected_company, response))
-                
-    # Store updated search history in cache
-    get_search_history(search_history)
-    
-    
-    # Display search history section
-    st.subheader("Search History")
-    for company, recommendation in search_history:
-        st.write(f"Company: {company}")
-        st.write(f"Recommendation: {recommendation}")
-        st.divider()
-    '''
         
 if __name__ == '__main__':
     main()
