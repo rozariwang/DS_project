@@ -13,6 +13,9 @@ def main():
     # Dropdown selection box for companies
     selected_company = st.selectbox("What company do you want to invest in?", companies)
     
+    # Empty placeholder for apology message
+    apology_placeholder = st.empty()
+    
     # Submit button
     submit_button = st.button("Generate Recommendation")
     
@@ -21,12 +24,12 @@ def main():
         # Call controller's generate_recommendation() function to get recommendation
           response = controller.generate_recommendation(selected_company)
           
-          if response is None: 
-              st.subheader("Apologies!")
-              st.write(
-                  f"We cannot provide a recommendation for stock investment in company {selected_company}, "
-                  "as there is no data available for this company."
-              )
+          if response is None:
+              apology_placeholder.subheader("Apologies!")
+              apology_placeholder.write(
+                    f"We cannot provide a recommendation for stock investment in company {selected_company}, "
+                    "as there is no data available for this company."
+               )
           else:
               # Display recommendation
               st.subheader("Recommendation:")
