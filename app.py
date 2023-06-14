@@ -53,7 +53,7 @@ def main():
         if selected_company:
         # Call controller's generate_recommendation() function to get recommendation
           response = controller.generate_recommendation(selected_company)
-          return response 
+          st.write(response)  # Display the recommendation 
 
 if __name__ == '__main__':
     main()
