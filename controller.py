@@ -30,7 +30,11 @@ def generate_recommendation(company):
         temperature=0.6
     )
     response = completion.choices[0].text
-    return response
+    return {
+        "company": company,
+        "score": score,
+        "response": response
+    }
 
 def generate_random_prediction():
     return random.randint(-1, 1)
