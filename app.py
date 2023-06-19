@@ -58,12 +58,9 @@ def main():
                 response = controller.generate_recommendation(selected_company)
                 
                 # Display the recommendation
-                st.write(response["response"])
+                st.write(response)
                 
-                prediction_score = response["score"]
 
-                if prediction_score == 1:
-                    st.balloons()
 
         
 if __name__ == '__main__':
