@@ -59,6 +59,13 @@ def main():
                 
                 # Display the recommendation
                 st.write(response)
+                
+                prediction_score = response["score"]
+
+                if prediction_score == 1:
+                    st.balloons()
+                elif prediction_score == -1:
+                    st.snow()
 
         
 if __name__ == '__main__':
