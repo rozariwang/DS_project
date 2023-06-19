@@ -59,7 +59,7 @@ def main():
                 response = controller.generate_recommendation(selected_company)
                 
                 # Display the recommendation
-st.write(response)
+                st.write(response)
                 
         
 if __name__ == '__main__':
