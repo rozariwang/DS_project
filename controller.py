@@ -16,6 +16,7 @@ openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
 openai.api_key = "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"
 
 # Function to generate recommendation using ChatGPT API
+@st.cache
 def generate_recommendation(company):
     score = generate_random_prediction()
     
