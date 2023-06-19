@@ -60,7 +60,7 @@ def main():
                 
                 # Display the recommendation
                 st.write(response)
-                
+
         
 if __name__ == '__main__':
     main()
