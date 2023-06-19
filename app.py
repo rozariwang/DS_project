@@ -41,6 +41,7 @@ with open('company_names.txt', 'r') as file:
     
     
 # Streamlit app code
+@st.cache
 def main():
     st.subheader("Investment Recommendation")
     
