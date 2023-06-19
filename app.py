@@ -64,8 +64,6 @@ def main():
 
                 if prediction_score == 1:
                     st.balloons()
-                elif prediction_score == -1:
-                    st.snow()
 
         
 if __name__ == '__main__':
