@@ -45,9 +45,9 @@ def main():
     st.subheader("Investment Recommendation")
     
     # Dropdown selection box for companies
-    selected_company = st.selectbox("## What company do you want to invest in?", companies)
+    selected_company = st.selectbox("##### What company do you want to invest in?", companies)
     
-    st.markdown("##### Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.")
+    st.markdown("## Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.")
     
     # Submit button
     submit_button = st.button("Generate Recommendation")
@@ -62,7 +62,6 @@ def main():
                 # Display the recommendation
                 st.write(response)
                 
-
 
         
 if __name__ == '__main__':
