@@ -50,6 +50,8 @@ def main():
     # Submit button
     submit_button = st.button("Generate Recommendation")
     
+    st.markdown("Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange, and we apologize for any inconvenience if the company you are interested in is not covered.")
+    
     if submit_button:
         if selected_company:
             # Show loading message
