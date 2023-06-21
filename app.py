@@ -60,6 +60,7 @@ def main():
                 response = controller.generate_recommendation(selected_company)
                 
                 # Display the recommendation
+                st.divider() 
                 st.write(response)
                 
 
