@@ -3,7 +3,7 @@ import controller
 
 logo_image = "2.png"  
 #st.image(logo_image, use_column_width=True)
-st.image(logo_image, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+st.image(logo_image, use_column_width=True, clamp=False, channels="RGB")
 
 # Add custom CSS to align content in the middle
 st.markdown(
