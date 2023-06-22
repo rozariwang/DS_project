@@ -2,8 +2,7 @@ import streamlit as st
 import controller
 
 logo_image = "2.png"  
-#st.image(logo_image, use_column_width=True)
-st.image(logo_image, use_column_width=True, clamp=False, channels="RGB")
+st.image(logo_image, use_column_width=True)
 
 # Add custom CSS to align content in the middle
 st.markdown(
