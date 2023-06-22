@@ -1,6 +1,9 @@
 import streamlit as st
 import controller
 
+logo_image = "2.png"  # Replace with the actual path and filename
+st.image(logo_image, use_column_width=True)
+
 # Add custom CSS to align content in the middle
 st.markdown(
     """
