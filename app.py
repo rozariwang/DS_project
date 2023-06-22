@@ -1,10 +1,8 @@
 import streamlit as st
 import controller
 
-#logo_image = "2.png"  
+logo_image = "2.png"  
 #st.image(logo_image, use_column_width=True)
-
-image = Image.open('2.png')
 st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
 
 # Add custom CSS to align content in the middle
