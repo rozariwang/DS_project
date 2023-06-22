@@ -1,8 +1,17 @@
 import streamlit as st
 import controller
 
-logo_image = "2.png"  # Replace with the actual path and filename
-st.image(logo_image, use_column_width=True)
+#logo_image = "2.png"  
+#st.image(logo_image, use_column_width=True)
+
+logo_image = "2.png" 
+# Center the image and adjust its size using CSS
+container = st.container()
+container.markdown(
+    f'<div style="display: flex; justify-content: center; align-items: center; height: 200px;"><img src="{logo_image}" style="max-width: 100%; max-height: 100%;"></div>',
+    unsafe_allow_html=True
+)
+
 
 # Add custom CSS to align content in the middle
 st.markdown(
