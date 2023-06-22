@@ -19,7 +19,8 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth")
+st.title("ProfitProphet")
+st.markdown("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth 🔮")
 
 st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Ho-Hsuan Wang (in alphabetical order)')
 
