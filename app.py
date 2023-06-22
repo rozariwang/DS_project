@@ -4,14 +4,8 @@ import controller
 #logo_image = "2.png"  
 #st.image(logo_image, use_column_width=True)
 
-logo_image = "2.png" 
-# Center the image and adjust its size using CSS
-container = st.container()
-container.markdown(
-    f'<div style="display: flex; justify-content: center; align-items: center; height: 200px;"><img src="{logo_image}" style="max-width: 100%; max-height: 100%;"></div>',
-    unsafe_allow_html=True
-)
-
+image = Image.open('2.png')
+st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
 
 # Add custom CSS to align content in the middle
 st.markdown(
