@@ -1,5 +1,6 @@
-import streamlit as st
 import controller
+import pandas as pd
+import streamlit as st
 
 logo_image = "2.png"  
 st.image(logo_image, use_column_width=True)
@@ -39,13 +40,12 @@ st.markdown(
     Happy Investing! 💸 
     """
 )
+with open('stock_names_with_tickers.txt', 'r') as f:
+    companies = f.read().splitlines()
 
-with open('company_names.txt', 'r') as file:
-    companies= file.readlines() 
-    
-    
 # Streamlit app code
 def main():
+
     st.subheader("Investment Recommendation")
     
     # Dropdown selection box for companies
@@ -66,9 +66,7 @@ def main():
                 # Display the recommendation
                 st.divider() 
                 st.write(response)
-                
 
-        
 if __name__ == '__main__':
     main()
     
