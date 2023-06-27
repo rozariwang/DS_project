@@ -39,7 +39,7 @@ st.markdown(
     Happy Investing! 💸 
     """
 )
-with open('stock_names_with_tickers.txt', 'r') as f:
+with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as f:
     companies = f.read().splitlines()
 
 # Streamlit app code
