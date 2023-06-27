@@ -81,13 +81,17 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     column_names: "list[str]" = ["low","open","volume","high","close","adjclose","Annual Percent Change","positive","negative","neutral"]
 
     stock_news = Sentiment(ticker)
-    sentiment_score = stock_news.get_dataframe(days=1)
-    stories = sentiment_score['headline'].tolist()[:10]
-    sentiments: "list[list[float]]" = []
+    try:
+        sentiment_score = stock_news.get_dataframe(days=1)
 
-    for story in stories:
-        sentiment = get_sentiment(story)
-        sentiments.append(sentiment)
+        stories = sentiment_score['headline'].tolist()[:10]
+        sentiments: "list[list[float]]" = []
+
+        for story in stories:
+            sentiment = get_sentiment(story)
+            sentiments.append(sentiment)
+    except AttributeError:
+        sentiments = [[.3, .3, .4] * 10]
 
     sentiments_df = pd.DataFrame(sentiments, columns=['positive', 'negative', 'neutral'])
     mean_sentiments: pd.Series = sentiments_df.mean()
