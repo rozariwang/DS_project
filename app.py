@@ -1,8 +1,7 @@
 import controller
 import streamlit as st
 
-logo_image = "saarlogo.png"  
-st.image(logo_image, use_column_width=True)
+st.image("saarlogo.png" , use_column_width=True)
 
 # Add custom CSS to align content in the middle
 st.markdown(
@@ -39,6 +38,7 @@ st.markdown(
     Happy Investing! 💸 
     """
 )
+
 @st.cache_data
 def load_companies():
     """
@@ -46,13 +46,20 @@ def load_companies():
     Returns:
         list: A list of companies.
     """
-    with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as f:
-        companies = f.read().splitlines()
+    with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as file_in:
+        companies = file_in.read().splitlines()
     return companies    
 
 # Streamlit app code
 def main():
-
+    """
+    Main function of the app.
+    Allows company selection and displays the recommendation.
+    args:
+        None.
+    Returns:
+        None.
+    """
     st.subheader("Investment Recommendation")
 
     # Dropdown selection box for companies
@@ -71,7 +78,7 @@ def main():
                 response = controller.generate_recommendation(selected_company)
                 
                 # Display the recommendation
-                st.divider() 
+                st.divider()
                 st.write(response)
 
 if __name__ == '__main__':
