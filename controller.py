@@ -37,7 +37,7 @@ def get_sentiment(input_text: str) -> "list[float]":
 
     return torch.nn.Softmax(dim=1)(logits)[0].tolist()
 
-def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float]": # type: ignore
+def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: ignore
     """
     Retrieves stock data, performs sentiment analysis on related news stories,
     and returns the processed data as a tuple.
@@ -60,6 +60,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float]": # type: ignor
         sentiments.append(sentiment)
 
     sentiments_df = pd.DataFrame(sentiments, columns=['positive', 'negative', 'neutral'])
+    sentiment_return: str = pd.argmax(sentiments_df)
     mean_sentiments: pd.Series = sentiments_df.mean()
     stock_sentiment: "list[float]" = mean_sentiments.values.tolist()
 
@@ -74,9 +75,9 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float]": # type: ignor
 
     annualized_ticker_info = annualized_ticker_info[column_names] # reorder columns
 
-    return torch.Tensor(annualized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change']
+    return torch.Tensor(annualized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
-def generate_stock_prediction(company: str) -> "tuple[float, float]":
+def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     """
     Generates a stock prediction for a given company using the retrieved stock data and a loaded model.
     Args:
@@ -84,10 +85,10 @@ def generate_stock_prediction(company: str) -> "tuple[float, float]":
     Returns:
         tuple: A tuple containing the stock prediction and the annual percent change.
     """
-    stock_data, annual_percent_change = get_stock_data(company)
+    stock_data, annual_percent_change, sentiment = get_stock_data(company)
     model = torch.load('multilayer_model2.pickle') ### TODO upload whatever model Nicho finishes
     prediction = model(stock_data)
-    return prediction.item(), annual_percent_change
+    return prediction.item(), annual_percent_change, sentiment
 
 # Function to generate recommendation using ChatGPT API
 @st.cache
@@ -107,7 +108,7 @@ def generate_recommendation(company: str):
 
     company_ticker = compnay_dict[company]
 
-    prediction, annual_percent_change = generate_stock_prediction(company_ticker)
+    prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
     
     prompt = str(f"""Given the score -1(not promising) to 1(very promosing), 
               our model gives {company_ticker} company a score of {prediction}. 
