@@ -134,7 +134,7 @@ def generate_recommendation(company: str):
                  company as a long-term investment. Include the following company metrics in the response: average annual percentage change of 
                  {annual_percent_change} and current {sentiment} sentiment of news articles for this company. 
                  The model is based on historical stock data and news headline sentiment. The explanation should be understood by someone new to investing. 
-                 Limit the response to 300 words."""
+                 Limit the response to 200 words."""
                 )
     
     completion = openai.Completion.create(
