@@ -76,7 +76,9 @@ def main():
             with st.spinner("Generating recommendation..."):
                 # Call controller's generate_recommendation() function to get recommendation
                 response = controller.generate_recommendation(selected_company)
-                
+                if response == 404:
+                    st.error("Sorry, we could not find the company you selected. Please try again.")
+                    return
                 # Display the recommendation
                 st.divider()
                 st.write(response)

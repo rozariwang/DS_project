@@ -78,7 +78,7 @@ def get_sentiment(input_text: str) -> "list[float]":
 
     return torch.nn.Softmax(dim=1)(logits)[0].tolist()
 
-def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: ignore
+def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]|int": # type: ignore
     """
     Retrieves stock data, performs sentiment analysis on related news stories,
     and returns the processed data as a tuple.
@@ -96,11 +96,9 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     mean_series = pd.Series(stock_means, index=column_names)
     std_series = pd.Series(stock_std, index=column_names)
 
-
-    stock_news = Sentiment(ticker)
     try:
+        stock_news = Sentiment(ticker)
         sentiment_score = stock_news.get_dataframe(days=1)
-
         stories = sentiment_score['headline'].tolist()[:10]
         sentiments: "list[list[float]]" = []
 
@@ -114,8 +112,10 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     except:
         sentiment_return = "neutral"
         stock_sentiment = [0.3, 0.3, 0.4]
-
-    ticker_info: pd.DataFrame = si.get_data(ticker, start_date=yesteryear, end_date=today, interval="1mo")
+    try:
+        ticker_info: pd.DataFrame = si.get_data(ticker, start_date=yesteryear, end_date=today, interval="1mo")
+    except:
+        return 404
     ticker_info = ticker_info.drop(columns=['ticker'])
     ticker_info['Annual Percent Change'] = (ticker_info.iloc[-1]['close'] - ticker_info.iloc[0]['close']) / ticker_info.iloc[0]['close'] * 100
     annualized_ticker_info = ticker_info.mean()
@@ -131,7 +131,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     return torch.Tensor(normalalized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
 
-def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
+def generate_stock_prediction(company: str) -> "tuple[float, float, str]|int":
     """
     Generates a stock prediction for a given company using the retrieved stock data and a loaded model.
     Args:
@@ -139,7 +139,10 @@ def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     Returns:
         tuple: A tuple containing the stock prediction and the annual percent change.
     """
-    stock_data, annual_percent_change, sentiment = get_stock_data(company)
+    try:
+        stock_data, annual_percent_change, sentiment = get_stock_data(company)
+    except:
+        return 404
     model = MyNetwork()
     model.load_state_dict(torch.load("ProfifPropheNet-v1.pt"))
     model.eval()
@@ -160,7 +163,10 @@ def generate_recommendation(company: str):
     company_dict = load_companies()
     company_ticker = company_dict[company]
 
-    prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
+    try:
+        prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
+    except:
+        return 404
     
     prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}.
                  The decision parameter is based on whether the annual stock value percentage change beats inflation on average. Based on this score, provide a short recommendation of whether or not the user should invest in this 
