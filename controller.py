@@ -9,23 +9,12 @@ from stocksent.sentiment import Sentiment
 from transformers import AutoModelForSequenceClassification  # type: ignore
 from transformers import AutoTokenizer  # type: ignore
 
+# Set up OpenAI API credentials
+#openai.organization = openai_organization
+openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
+#openai.api_key = openai_api
+openai.api_key = "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"
 
-@st.cache_data
-def retrieve_api_credientials():
-    ''' :)
-    # Retrieve OpenAI API credentials from secrets.toml
-    secrets = st.secrets["openai"]
-    openai_organization = secrets["openai_organization"]
-    openai_api = secrets["openai_api"]
-    '''
-
-    # Set up OpenAI API credentials
-    #openai.organization = openai_organization
-    openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
-    #openai.api_key = openai_api
-    openai.api_key = "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"
-
-    return openai.api_key, openai.organization
 
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
