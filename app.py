@@ -1,13 +1,7 @@
 import controller
 import streamlit as st
 
-<<<<<<< HEAD
-st.image("saarlogo.png" , use_column_width=True)
-=======
-logo_image = "2.png"  
-#st.image(logo_image, use_column_width=True)
-st.image(logo_image, use_column_width=True, clamp=False, channels="RGB")
->>>>>>> parent of 512b472 (Update app.py)
+st.image("saarlogo.png", use_column_width=True)
 
 # Add custom CSS to align content in the middle
 st.markdown(
