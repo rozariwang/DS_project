@@ -90,13 +90,13 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
         for story in stories:
             sentiment = get_sentiment(story)
             sentiments.append(sentiment)
+        sentiments_df = pd.DataFrame(sentiments, columns=['positive', 'negative', 'neutral'])
+        mean_sentiments: pd.Series = sentiments_df.mean()
+        sentiment_return: str = str(pd.Series.idxmax(mean_sentiments))
+        stock_sentiment: "list[float]" = mean_sentiments.values.tolist()
     except AttributeError:
-        sentiments = [[.3, .3, .4] * 10]
-
-    sentiments_df = pd.DataFrame(sentiments, columns=['positive', 'negative', 'neutral'])
-    mean_sentiments: pd.Series = sentiments_df.mean()
-    sentiment_return: str = str(pd.Series.idxmax(mean_sentiments))
-    stock_sentiment: "list[float]" = mean_sentiments.values.tolist()
+        sentiment_return = "neutral"
+        stock_sentiment = [0.3, 0.3, 0.4]
 
     ticker_info: pd.DataFrame = si.get_data(ticker, start_date=yesteryear, end_date=today, interval="1mo")
     ticker_info = ticker_info.drop(columns=['ticker'])
