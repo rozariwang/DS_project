@@ -90,6 +90,12 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     today: datetime = datetime.today()
     yesteryear: str = (today - timedelta(days=345)).strftime('%Y-%m-%d')
     column_names: "list[str]" = ["low","open","volume","high","close","adjclose","Annual Percent Change","positive","negative","neutral"]
+    stock_means: "list[float]" = [526.3256709784156, 543.3051050285828, 1550317.649111653, 560.6335547940919, 543.4596727527701, 432.9478474861315, 2.1972159402834595, 0.26918878308244654, 0.27109889272321963, 0.45971232487752245, 0.5896452176555497]
+    stock_std: "list[float]" = [25100.799536177463, 25956.76629687626, 13374912.758878224, 26792.649346820093, 25956.514595704837, 20572.229772641494, 477.38693948841035, 0.13956166294058042, 0.1719876441524078, 0.16237148015431316, 0.4919027653578207]
+
+    mean_series = pd.Series(stock_means, index=column_names)
+    std_series = pd.Series(stock_std, index=column_names)
+
 
     stock_news = Sentiment(ticker)
     try:
@@ -105,7 +111,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
         mean_sentiments: pd.Series = sentiments_df.mean()
         sentiment_return: str = str(pd.Series.idxmax(mean_sentiments))
         stock_sentiment: "list[float]" = mean_sentiments.values.tolist()
-    except AttributeError:
+    except:
         sentiment_return = "neutral"
         stock_sentiment = [0.3, 0.3, 0.4]
 
@@ -119,7 +125,10 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     annualized_ticker_info['neutral'] = stock_sentiment[2]
     annualized_ticker_info = annualized_ticker_info[column_names] # type: ignore
 
-    return torch.Tensor(annualized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
+    normalalized_ticker_info = (annualized_ticker_info - mean_series) / std_series
+    print(normalalized_ticker_info)
+
+    return torch.Tensor(normalalized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
 
 def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
@@ -153,9 +162,8 @@ def generate_recommendation(company: str):
 
     prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
     
-    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {round(prediction, 2)}. 
-                 The decision parameter is based on whether the annual stock value percentage change company performs above the threshold for 
-                 inclusion in the S&P 500. Based on this score, provide a short recommendation of whether or not the user should invest in this 
+    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}.
+                 The decision parameter is based on whether the annual stock value percentage change beats inflation on average. Based on this score, provide a short recommendation of whether or not the user should invest in this 
                  company as a long-term investment. Include the following company metrics in the response: average annual percentage change of 
                  {round(annual_percent_change, 2)}% and current {sentiment} sentiment of news articles for this company. 
                  The model is based on historical stock data and news headline sentiment. The explanation should be understood by someone new to investing. 
