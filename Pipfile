@@ -13,7 +13,6 @@ pandas = "*"
 stocksent = "*"
 yahoo_fin = "*"
 datetime = "*"
-nltk = "*"
 
 [dev-packages]
 

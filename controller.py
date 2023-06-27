@@ -21,6 +21,7 @@ openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
 #openai.api_key = openai_api
 openai.api_key = "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"
 
+@st.cache(allow_output_mutation=True)
 def get_sentiment(input_text: str) -> "list[float]":
     """
     Performs sentiment analysis on the input text using the FinBERT model.
@@ -37,7 +38,7 @@ def get_sentiment(input_text: str) -> "list[float]":
 
     return torch.nn.Softmax(dim=1)(logits)[0].tolist()
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: ignore
     """
     Retrieves stock data, performs sentiment analysis on related news stories,
