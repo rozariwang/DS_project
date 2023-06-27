@@ -10,7 +10,7 @@ openai = "*"
 torch = "*"
 transformers = "*"
 pandas = "*"
-stocksent = "Sentiment"
+stocksent = "*"
 yahoo_fin = "*"
 datetime = "*"
 
