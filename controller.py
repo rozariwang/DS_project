@@ -3,25 +3,52 @@ from datetime import datetime, timedelta
 import openai
 import pandas as pd
 import streamlit as st
+#import streamlit as st
 import torch
 import yahoo_fin.stock_info as si
 from stocksent.sentiment import Sentiment
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-''' :)
-# Retrieve OpenAI API credentials from secrets.toml
-secrets = st.secrets["openai"]
-openai_organization = secrets["openai_organization"]
-openai_api = secrets["openai_api"]
-'''   
 
-# Set up OpenAI API credentials
-#openai.organization = openai_organization
-openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
-#openai.api_key = openai_api
-openai.api_key = "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"
+@st.cache_data
+def retrieve_api_credientials():
+    ''' :)
+    # Retrieve OpenAI API credentials from secrets.toml
+    secrets = st.secrets["openai"]
+    openai_organization = secrets["openai_organization"]
+    openai_api = secrets["openai_api"]
+    '''
 
-@st.cache(allow_output_mutation=True)
+    # Set up OpenAI API credentials
+    #openai.organization = openai_organization
+    openai.organization = "org-pJcWPQGFUTRBlstxxYtLSgys"
+    #openai.api_key = openai_api
+    openai.api_key = "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"
+
+    return openai.api_key, openai.organization
+
+@st.cache_resource  # 👈 Add the caching decorator
+def load_model():
+    """
+    Loads the FinBERT model for sentiment analysis.
+    """
+    return AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")
+
+@st.cache_resource  # 👈 Add the caching decorator
+def load_tokenizer():
+    """
+    Loads the FinBERT tokenizer for sentiment analysis.
+    """
+    return AutoTokenizer.from_pretrained("ProsusAI/finbert")
+
+@st.cache_data
+def load_companies():
+    """
+    Loads the company dictionary from the csv file.
+    """
+    return pd.read_csv('dicker_lookup_df.csv', index_col=0)
+
+@st.cache_data
 def get_sentiment(input_text: str) -> "list[float]":
     """
     Performs sentiment analysis on the input text using the FinBERT model.
@@ -30,15 +57,15 @@ def get_sentiment(input_text: str) -> "list[float]":
     Returns:
         list: A list of sentiment probabilities for each class.
     """
-    tokenizer = AutoTokenizer.from_pretrained("ProsusAI/finbert")
-    model = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")
+    tokenizer = load_tokenizer()
+    model = load_model()
     inputs = tokenizer(input_text, return_tensors="pt")
     with torch.no_grad():
         logits = model(**inputs).logits
 
     return torch.nn.Softmax(dim=1)(logits)[0].tolist()
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: ignore
     """
     Retrieves stock data, performs sentiment analysis on related news stories,
@@ -79,6 +106,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
 
     return torch.Tensor(annualized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
+@st.cache_data
 def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     """
     Generates a stock prediction for a given company using the retrieved stock data and a loaded model.
@@ -93,7 +121,7 @@ def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     return prediction.item(), annual_percent_change, sentiment
 
 # Function to generate recommendation using ChatGPT API
-@st.cache
+@st.cache_data
 def generate_recommendation(company: str):
     """
     Generates a recommendation for a given company based on the stock prediction and annual percent change.
@@ -103,7 +131,7 @@ def generate_recommendation(company: str):
         str: The generated recommendation as a response to the prompt.
     """
 
-    companies = pd.read_csv('dicker_lookup_df.csv', index_col=0)
+    companies = load_companies()
     companies = companies.to_dict("split")
     companies = zip(companies["index"], companies["data"])
     compnay_dict = {k: v[0] for k, v in companies}

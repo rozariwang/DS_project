@@ -39,16 +39,24 @@ st.markdown(
     Happy Investing! 💸 
     """
 )
-with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as f:
-    companies = f.read().splitlines()
+@st.cache_data
+def load_companies():
+    """
+    Loads the list of companies from the text file.
+    Returns:
+        list: A list of companies.
+    """
+    with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as f:
+        companies = f.read().splitlines()
+    return companies    
 
 # Streamlit app code
 def main():
 
     st.subheader("Investment Recommendation")
-    
+
     # Dropdown selection box for companies
-    selected_company = st.selectbox("##### What company do you want to invest in?", companies)
+    selected_company = st.selectbox("##### What company do you want to invest in?", load_companies())
     
     st.markdown("Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.")
     
