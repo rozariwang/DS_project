@@ -42,7 +42,7 @@ def load_companies():
     return {k: v for k, v in zip(companies["ticker"], companies["name"])}
 
 # define the Network
-@st.cache_resource
+
 class MyNetwork(nn.Module):
     def __init__(self, lr=0.0001):
         super(MyNetwork, self).__init__()
@@ -133,7 +133,9 @@ def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     stock_data, annual_percent_change, sentiment = get_stock_data(company)
     model = MyNetwork()
     model.load_state_dict(torch.load("ProfifPropheNet-v1.pt"))
-    prediction = model(stock_data).round()
+    model.eval()
+    with torch.no_grad():
+        prediction = model(stock_data).round()
     return prediction.item(), annual_percent_change, sentiment
 
 # Function to generate recommendation using ChatGPT API
