@@ -2,10 +2,10 @@ from datetime import datetime, timedelta
 
 import openai
 import pandas as pd
-import stocksent
 import streamlit as st
 import torch
 import yahoo_fin.stock_info as si
+from stocksent.sentiment import Sentiment
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 ''' :)
@@ -37,6 +37,7 @@ def get_sentiment(input_text: str) -> "list[float]":
 
     return torch.nn.Softmax(dim=1)(logits)[0].tolist()
 
+@st.cache
 def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: ignore
     """
     Retrieves stock data, performs sentiment analysis on related news stories,
@@ -50,7 +51,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     yesteryear: str = (today - timedelta(days=345)).strftime('%Y-%m-%d')
     column_names: "list[str]" = ["low","open","volume","high","close","adjclose","Annual Percent Change","positive","negative","neutral"]
 
-    stock_news = stocksent.Sentiment(ticker)
+    stock_news = Sentiment(ticker)
     sentiment_score = stock_news.get_dataframe(days=1)
     stories = sentiment_score['headline'].tolist()[:10]
     sentiments: "list[float]" = []
