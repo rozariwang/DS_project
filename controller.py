@@ -4,6 +4,7 @@ import openai
 import pandas as pd
 import streamlit as st
 import torch
+import torch.nn as nn
 import yahoo_fin.stock_info as si
 from stocksent.sentiment import Sentiment
 from transformers import AutoModelForSequenceClassification  # type: ignore
@@ -39,6 +40,27 @@ def load_companies():
     """
     companies = pd.read_csv('dicker_lookup_df.csv', names=['ticker', 'name'], header=0)
     return {k: v for k, v in zip(companies["ticker"], companies["name"])}
+
+# define the Network
+@st.cache_resource
+class MyNetwork(nn.Module):
+    def __init__(self, lr=0.0001):
+        super(MyNetwork, self).__init__()
+        self.learning_rate = lr
+
+        self.network = nn.Sequential(
+        nn.Linear(10, 100),
+        nn.ReLU(),
+        nn.Linear(100, 500),
+        nn.ReLU(),
+        nn.Linear(500, 100),
+        nn.ReLU(),
+        nn.Linear(100, 1),
+        nn.Sigmoid()
+)
+
+    def forward(self, x):
+        return self.network(x)
 
 def get_sentiment(input_text: str) -> "list[float]":
     """
@@ -95,7 +117,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
     annualized_ticker_info['positive'] = stock_sentiment[0]
     annualized_ticker_info['negative'] = stock_sentiment[1]
     annualized_ticker_info['neutral'] = stock_sentiment[2]
-    annualized_ticker_info = annualized_ticker_info[column_names] # reorder columns
+    annualized_ticker_info = annualized_ticker_info[column_names] # type: ignore
 
     return torch.Tensor(annualized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
@@ -109,8 +131,9 @@ def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
         tuple: A tuple containing the stock prediction and the annual percent change.
     """
     stock_data, annual_percent_change, sentiment = get_stock_data(company)
-    model = torch.load('multilayer_model2.pickle') ### TODO upload whatever model Nicho finishes
-    prediction = model(stock_data)
+    model = MyNetwork()
+    model.load_state_dict(torch.load("/content/ProfifPropheNet-v1.pt"))
+    prediction = model(stock_data).round()
     return prediction.item(), annual_percent_change, sentiment
 
 # Function to generate recommendation using ChatGPT API
@@ -128,11 +151,11 @@ def generate_recommendation(company: str):
 
     prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
     
-    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}. 
+    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {round(prediction, 2)}. 
                  The decision parameter is based on whether the annual stock value percentage change company performs above the threshold for 
                  inclusion in the S&P 500. Based on this score, provide a short recommendation of whether or not the user should invest in this 
                  company as a long-term investment. Include the following company metrics in the response: average annual percentage change of 
-                 {annual_percent_change} and current {sentiment} sentiment of news articles for this company. 
+                 {round(annual_percent_change, 2)}% and current {sentiment} sentiment of news articles for this company. 
                  The model is based on historical stock data and news headline sentiment. The explanation should be understood by someone new to investing. 
                  Limit the response to 300 words."""
                 )

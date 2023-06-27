@@ -48,7 +48,7 @@ def load_companies():
     """
     with open('stock_names_with_tickers.txt', 'r', encoding='utf-8') as file_in:
         companies = file_in.read().splitlines()
-    return companies    
+    return companies
 
 # Streamlit app code
 def main():
