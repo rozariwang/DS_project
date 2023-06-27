@@ -7,6 +7,12 @@ name = "pypi"
 streamlit = "*"
 watchdog = "*"
 openai = "*"
+torch = "*"
+transformers = "*"
+pandas = "*"
+stocksent = "*"
+yahoo_fin = "*"
+datetime = "*"
 
 [dev-packages]
 

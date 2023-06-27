@@ -1,5 +1,4 @@
 import controller
-import pandas as pd
 import streamlit as st
 
 logo_image = "saarlogo.png"  
