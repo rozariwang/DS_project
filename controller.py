@@ -48,11 +48,8 @@ def load_companies():
     Returns:
         dict: A dictionary of companies.
     """
-    companies = pd.read_csv('dicker_lookup_df.csv', index_col=0)
-    index = companies["ticker"]
-    data = companies["name"]
-    zipped = zip(index, data)
-    return {k: v for k, v in zipped}
+    companies = pd.read_csv('dicker_lookup_df.csv', names=['ticker', 'name'], header=0)
+    return {k: v for k, v in zip(companies["ticker"], companies["name"])}
 
 def get_sentiment(input_text: str) -> "list[float]":
     """
