@@ -110,11 +110,14 @@ def generate_recommendation(company: str):
 
     prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
     
-    prompt = str(f"""Given the score -1(not promising) to 1(very promosing), 
-              our model gives {company_ticker} company a score of {prediction}. 
-              Based on this score {prediction}, and an annual growth of {annual_percent_change}, 
-              explain why {company_ticker} company stock might or might not be suitable to invest in the long term? 
-              Respond in less than 150 words.""")
+    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}. 
+                 The decision parameter is based on whether the annual stock value percentage change company performs above the threshold for 
+                 inclusion in the S&P 500. Based on this score, provide a short recommendation of whether or not the user should invest in this 
+                 company as a long-term investment. Include the following company metrics in the response: average annual percentage change of 
+                 {annual_percent_change} and current {sentiment} sentiment of news articles for this company. 
+                 The model is based on historical stock data and news headline sentiment. The explanation should be understood by someone new to investing. 
+                 Limit the response to 300 words."""
+                )
     
     completion = openai.Completion.create(
         engine='text-davinci-003',
