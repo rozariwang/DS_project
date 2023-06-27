@@ -132,7 +132,7 @@ def generate_stock_prediction(company: str) -> "tuple[float, float, str]":
     """
     stock_data, annual_percent_change, sentiment = get_stock_data(company)
     model = MyNetwork()
-    model.load_state_dict(torch.load("/content/ProfifPropheNet-v1.pt"))
+    model.load_state_dict(torch.load("ProfifPropheNet-v1.pt"))
     prediction = model(stock_data).round()
     return prediction.item(), annual_percent_change, sentiment
 
