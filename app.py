@@ -70,11 +70,16 @@ def main():
     st.markdown("<p style='font-size: 12px; margin-top: -15px; text-align: center;'>You can either select a company from the list below or simply type in your selection.</p>", unsafe_allow_html=True)
     
     #align button in the centre
-    col1, col2, col3 = st.beta_columns([1, 2, 1])
-    with col2:
-        st.button("Generate Recommendation")
-    st.markdown("<p style='font-size: 12px; text-align: center;'>Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.</p>", unsafe_allow_html=True)
+    container = st.container()
+    with container:
+        st.write("")
+        st.markdown("<p style='text-align: center;'>Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.</p>", unsafe_allow_html=True)
+        st.write("")
 
+    centered_button = container.empty()
+    with centered_button:
+        st.button("Generate Recommendation")
+    
     if submit_button:
         if selected_company:
             # Show loading message
