@@ -60,7 +60,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]": # type: 
         sentiments.append(sentiment)
 
     sentiments_df = pd.DataFrame(sentiments, columns=['positive', 'negative', 'neutral'])
-    sentiment_return: str = pd.argmax(sentiments_df)
+    sentiment_return: str = pd.Series.argmax(pd.Series(sentiments))
     mean_sentiments: pd.Series = sentiments_df.mean()
     stock_sentiment: "list[float]" = mean_sentiments.values.tolist()
 
