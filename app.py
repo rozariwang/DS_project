@@ -2,7 +2,7 @@ import controller
 import pandas as pd
 import streamlit as st
 
-logo_image = "2.png"  
+logo_image = "saarlogo.png"  
 st.image(logo_image, use_column_width=True)
 
 # Add custom CSS to align content in the middle
