@@ -3,7 +3,7 @@ import streamlit as st
 
 #st.image("saarlogo.png", use_column_width=True) 
 col1, col2, col3 = st.columns(3)
-col2.image("saarlogo.png", width=270)
+col2.image("saarlogo.png", width=250)
 
 # Add custom CSS to align content in the middle
 st.markdown(
@@ -23,7 +23,7 @@ st.markdown(
 st.title("ProfitProphet")
 st.markdown("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth 🔮")
 
-st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Ho-Hsuan Wang (in alphabetical order)')
+st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Hohsuan Wang (in alphabetical order)')
 
 # Introduction section
 st.markdown(
