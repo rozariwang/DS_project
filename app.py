@@ -1,7 +1,10 @@
 import controller
 import streamlit as st
 
-st.image("saarlogo.png", use_column_width=True)
+#st.image("saarlogo.png", use_column_width=True)
+image_path = "saarlogo.png"
+width = 300 
+st.image(image_path, width=width, caption=None, use_column_width=False, output_format='auto')
 
 # Add custom CSS to align content in the middle
 st.markdown(
