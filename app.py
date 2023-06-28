@@ -2,21 +2,7 @@ import controller
 import streamlit as st
 
 #st.image("saarlogo.png", use_column_width=True)
-def center_and_resize_image(image_path, width):
-    # Calculate the centering CSS styles
-    image_style = f"""
-        display: flex;
-        justify-content: center;
-    """
-    # Resize the image using HTML <img> tag with width attribute
-    image_html = f'<img src="{image_path}" style="width:{width}px;">'
-    # Combine the styles and image HTML
-    image_markup = f'<div style="{image_style}">{image_html}</div>'
-    # Render the image using st.markdown
-    st.markdown(image_markup, unsafe_allow_html=True)
-    
-image_path = "saarlogo.png"  
-width = 300  
+st.image("saarlogo.png", width=300, caption=None, use_column_width=False) 
 
 center_and_resize_image(image_path, width)
 
