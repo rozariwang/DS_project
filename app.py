@@ -67,7 +67,7 @@ def main():
     # Dropdown selection box for companies
     selected_company = st.selectbox("##### What company do you want to invest in?", load_companies())
     st.markdown("<p style='font-size: 12px;'>You can either select a company from the list or simply type in your selection.</p>", unsafe_allow_html=True)
-    st.markdown("<p style='font-size: 12px;'>Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange. We apologize for any inconvenience if the company you are interested in is not covered. Our model also exhibits lower performance when classifying specific subsets of companies, particularly large ones like Apple, Amazon and Google, which are categorized as "do not invest" due to their relative difference in size compared to the majority of companies in the training data, making their classification more challenging as outliers.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 12px;'>Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange. We apologize for any inconvenience if the company you are interested in is not covered. Our model also exhibits lower performance when classifying specific subsets of companies, particularly large ones like Apple, Amazon and Google, which are categorized as 'do not invest' due to their relative difference in size compared to the majority of companies in the training data, making their classification more challenging as outliers.</p>", unsafe_allow_html=True)
     
     # Submit button
     submit_button = st.button("Generate Recommendation")
