@@ -117,6 +117,7 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]|int": # ty
     except:
         return 404
     ticker_info = ticker_info.drop(columns=['ticker'])
+    ticker_info = ticker_info.fillna(ticker_info.mean())
     ticker_info['Annual Percent Change'] = (ticker_info.iloc[-1]['close'] - ticker_info.iloc[0]['close']) / ticker_info.iloc[0]['close'] * 100
     annualized_ticker_info = ticker_info.mean()
 
