@@ -186,7 +186,7 @@ def generate_recommendation(company: str):
         max_tokens=1000,
         n=1,
         stop=None,
-        temperature=0.4
+        temperature=0.5
     )
     response = completion.choices[0].text # type: ignore
     return response
