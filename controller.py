@@ -127,7 +127,6 @@ def get_stock_data(ticker: str) -> "tuple[torch.tensor(), float, str]|int": # ty
     annualized_ticker_info = annualized_ticker_info[column_names] # type: ignore
 
     normalalized_ticker_info = (annualized_ticker_info - mean_series) / std_series
-    print(normalalized_ticker_info)
 
     return torch.Tensor(normalalized_ticker_info.values.tolist()), annualized_ticker_info['Annual Percent Change'], sentiment_return
 
