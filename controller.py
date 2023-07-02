@@ -167,10 +167,10 @@ def generate_recommendation(company: str):
         prediction, annual_percent_change, sentiment = generate_stock_prediction(company_ticker)
     except:
         return 404
-    if annual_percent_change == "nan%":
-        return 404
-    if type(annual_percent_change) != float:
-        return 404
+    # if annual_percent_change == "nan%":
+    #     return 404
+    # if type(annual_percent_change) != float:
+    #     return 404
 
     
     prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}.
