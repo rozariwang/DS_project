@@ -23,12 +23,12 @@ st.markdown(
 st.title("ProfitProphet")
 st.markdown("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth 🔮")
 
-st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Hohsuan Wang (in alphabetical order)')
+st.text('Members: Kate Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Hohsuan Wang (in alphabetical order)')
 
 # Introduction section
 st.markdown(
     """
-    Welcome to the Long-Term Investment Analysis App! 📊 This app helps investors make informed decisions for
+    Welcome to ProfitProphet! 📊 This app helps investors make informed decisions for
     long-term investment success. By leveraging advanced large language models (LLMs), analyzing macroeconomic
     indicators, and monitoring industry trends, it provides insights into the growth potential of stocks.
     
