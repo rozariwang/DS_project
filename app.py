@@ -1,7 +1,9 @@
 import controller
 import streamlit as st
 
-st.image("saarlogo.png", use_column_width=True)
+#st.image("saarlogo.png", use_column_width=True) 
+col1, col2, col3 = st.columns(3)
+col2.image("saarlogo.png", width=250)
 
 # Add custom CSS to align content in the middle
 st.markdown(
@@ -21,7 +23,7 @@ st.markdown(
 st.title("ProfitProphet")
 st.markdown("🍎 Data Science Group 3 🚀 US Stock Insights: Smart Analysis for Long-Term Growth 🔮")
 
-st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Ho-Hsuan Wang (in alphabetical order)')
+st.text('Members: Kate Rebecca Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee, Hohsuan Wang (in alphabetical order)')
 
 # Introduction section
 st.markdown(
@@ -64,8 +66,8 @@ def main():
 
     # Dropdown selection box for companies
     selected_company = st.selectbox("##### What company do you want to invest in?", load_companies())
-    
-    st.markdown("Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange at the moment. We apologize for any inconvenience if the company you are interested in is not covered.")
+    st.markdown("<p style='font-size: 12px;'>You can either select a company from the list or simply type in your selection.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='font-size: 12px;'>Regrettably, our app's predictions are limited to specific companies on Nasdaq and the New York Stock Exchange. We apologize for any inconvenience if the company you are interested in is not covered. Our model also exhibits lower performance when classifying specific subsets of companies, particularly large ones like Apple, Amazon and Google, which are categorized as 'do not invest' due to their relative difference in size compared to the majority of companies in the training data, making their classification more challenging as outliers.</p>", unsafe_allow_html=True)
     
     # Submit button
     submit_button = st.button("Generate Recommendation")
