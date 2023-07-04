@@ -33,7 +33,7 @@ st.markdown(
     indicators, and monitoring industry trends, it provides insights into the growth potential of stocks.
     
     Please note that investing in the stock market carries risks, and past performance is not always indicative of
-    future results. The Long-Term Investment Analysis App does not guarantee investment success or provide
+    future results. ProfitProphet does not guarantee investment success or provide
     financial advice. It is essential to evaluate your investment decisions carefully and consider consulting
     with a qualified financial professional. 
     
