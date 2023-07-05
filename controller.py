@@ -38,7 +38,7 @@ def load_companies():
     Returns:
         dict: A dictionary of companies.
     """
-    companies = pd.read_csv('dicker_lookup_df.csv', names=['ticker', 'name'], header=0)
+    companies = pd.read_csv('ticker_lookup_df.csv', names=['ticker', 'name'], header=0)
     return {k: v for k, v in zip(companies["ticker"], companies["name"])}
 
 # define the Network
