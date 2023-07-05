@@ -41,7 +41,7 @@ st.markdown(
     """
 )
 
-st.video(https://youtu.be/Gii8laWCrgM)
+st.video(format = "https://youtu.be/Gii8laWCrgM")
 
 @st.cache_data
 def load_companies():
