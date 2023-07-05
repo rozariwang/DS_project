@@ -173,11 +173,10 @@ def generate_recommendation(company: str):
     #     return 404
 
     
-    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {prediction}.
-                 The decision parameter is based on whether the annual stock value percentage change beats inflation on average. Based on this score, provide a short recommendation of whether or not the user should invest in this 
-                 company as a long-term investment. Include the following company metrics in the response: average annual percentage change of 
-                 {round(annual_percent_change, 2)}% and current {sentiment} sentiment of news articles for this company. 
-                 The model is based on historical stock data and news headline sentiment. The explanation should be understood by someone new to investing. 
+    prompt = str(f"""Given the score 0=do not invest, and 1=invest, our classifier model gives company {company_ticker} a score of {round(prediction, 2)}.
+                 The model is based on historical stock data and news headline sentiment (historical and current). The decision parameter is based on the long-term performance of this stock (average annual stock value percentage change), and whether the characteristics of this company align with those that tend to perform above the inflation threshold. 
+                 Based on this score, provide a short recommendation of whether or not the user should invest in this company as a long-term investment. Include the following company metrics in the response: average annual percentage change of {round(annual_percent_change, 2)}% and current {sentiment} sentiment of news articles for this company.
+                 The explanation should be understood by someone new to investing. Start the response with the explanation and then give the decision parameter. It should be clear that the numeric stock data & sentiment data are both factors which contribute to the final classification.
                  Limit the response to 200 words."""
                 )
     
