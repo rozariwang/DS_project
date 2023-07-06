@@ -29,8 +29,7 @@ st.text('Members: Kate Belcher, Nicholas Jennings, William LaCroix, Myeongju Lee
 st.markdown(
     """
     Welcome to ProfitProphet! 📊 This app helps investors make informed decisions for
-    long-term investment success. By leveraging advanced large language models (LLMs), analyzing macroeconomic
-    indicators, and monitoring industry trends, it provides insights into the growth potential of stocks.
+    long-term investment success. By leveraging advanced large language models (LLMs) and monitoring industry trends, it provides insights into the growth potential of stocks.
     
     Please note that investing in the stock market carries risks, and past performance is not always indicative of
     future results. ProfitProphet does not guarantee investment success or provide
