@@ -11,8 +11,8 @@ from transformers import AutoModelForSequenceClassification  # type: ignore
 from transformers import AutoTokenizer  # type: ignore
 
 # Set up OpenAI API credentials
-openai.organization = "openai_organization"
-openai.api_key = "openai_api_key"
+openai.organization = st.secrets["openai_organization"]
+openai.api_key = st.secrets["openai_api_key"]
 
 
 @st.cache_resource  # 👈 Add the caching decorator
